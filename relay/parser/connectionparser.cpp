@@ -46,9 +46,9 @@ void ConnectionParser::dataReceived() {
 
         qDebug() << parsedArray;
         if (coreCommand == "PING") {
-
+            mInternalSender->sendPong(parsedArray.at(1));
         } else if (coreCommand == "ERROR") {
-
+            return;
         } else {
             QString command = parsedArray.at(1);
 
@@ -56,6 +56,8 @@ void ConnectionParser::dataReceived() {
             int code = command.toInt(&numeric);
             if (numeric) {
                 if (parseCode(parsedArray, code)) {
+                    QObject::disconnect(mSocket, &QTcpSocket::readyRead,
+                                        this, &ConnectionParser::dataReceived);
                     return;
                 }
             } else {
@@ -70,7 +72,6 @@ bool ConnectionParser::parseCode(QStringList parsedArray, int code) {
         case RPL_WELCOME:
             QString nick = parsedArray.at(2);
             emit connectionStarted(nick);
-            QObject::disconnect(mSocket, &QTcpSocket::readyRead, this, &ConnectionParser::dataReceived);
             return true;
     }
     return false;
@@ -78,5 +79,7 @@ bool ConnectionParser::parseCode(QStringList parsedArray, int code) {
 
 void ConnectionParser::parseCommand(QStringList parsedArray, QString command) {
     if (command == "NOTICE") {
+        QString notice = parsedArray.at(3);
+        emit mServer->notice(NoticeEvent(mServer, notice));
     }
 }

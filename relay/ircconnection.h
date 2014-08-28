@@ -5,6 +5,7 @@
 
 class ConnectionParser;
 class IRCConnection;
+class ServerLineParser;
 
 #include "server.h"
 #include "serverconfiguration.h"

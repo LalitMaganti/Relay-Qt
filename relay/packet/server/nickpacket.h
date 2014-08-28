@@ -6,8 +6,6 @@
 #include "packet/packet.h"
 
 class NickPacket : public Packet {
-    Q_OBJECT
-
     public:
         explicit NickPacket(QString nick) :
             mNick(nick) {

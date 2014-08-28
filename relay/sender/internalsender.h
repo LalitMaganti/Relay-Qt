@@ -12,10 +12,10 @@ class InternalSender : public QObject {
         explicit InternalSender(PacketSender *sender,
                                 QObject *parent = 0);
 
-    private:
-        PacketSender mPacketSender;
-
         void sendPong(QString source);
+
+    private:
+        PacketSender *mPacketSender;
 };
 
 #endif // INTERNALSENDER_H

@@ -4,7 +4,8 @@ ServerLineParser::ServerLineParser(Server *server, QTcpSocket *socket, PacketSen
     QObject(parent),
     mServer(server),
     mSocket(socket),
-    mPacketSender(sender) {
+    mPacketSender(sender),
+    mInternalSender(new InternalSender(sender, this)) {
 }
 
 static QStringList splitRawLine(QString input, bool colonDelimiter) {

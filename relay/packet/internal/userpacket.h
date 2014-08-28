@@ -6,8 +6,6 @@
 #include "packet/packet.h"
 
 class UserPacket : public Packet {
-    Q_OBJECT
-
     public:
         explicit UserPacket(QString userName, QString realName) :
             mUserName(userName),

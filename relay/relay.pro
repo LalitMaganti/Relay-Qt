@@ -28,7 +28,8 @@ HEADERS  += ircconnection.h\
     server.h \
     event/event.h \
     event/serverevent.h \
-    parser/serverlineparser.h
+    parser/serverlineparser.h \
+    packet/internal/pongpacket.h
 
 unix {
     target.path = /usr/lib

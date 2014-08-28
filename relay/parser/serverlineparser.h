@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 
 #include "server.h"
+#include "sender/internalsender.h"
 #include "sender/packetsender.h"
 
 class ServerLineParser : public QObject
@@ -20,8 +21,11 @@ class ServerLineParser : public QObject
 
     private:
         Server *mServer;
+
         QTcpSocket *mSocket;
+
         PacketSender *mPacketSender;
+        InternalSender *mInternalSender;
 
     private slots:
         void dataReceived();
